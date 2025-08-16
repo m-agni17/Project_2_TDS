@@ -24,6 +24,7 @@ from fastapi.responses import JSONResponse
 from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi import FastAPI
 from dotenv import load_dotenv
+import uvicorn  
 
 import requests
 import pandas as pd
@@ -1118,6 +1119,6 @@ async def diagnose(full: bool = Query(False, description="If true, run extended 
 
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=PORT)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port)
 
