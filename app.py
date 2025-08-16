@@ -47,6 +47,10 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Port configuration for Railway deployment
+PORT = int(os.getenv("PORT", 8000))
+logger.info(f"Starting server on port {PORT}")
+
 app = FastAPI(title="TDS Data Analyst Agent")
 
 # -------------------- Robust Gemini LLM with fallback --------------------
@@ -1115,5 +1119,5 @@ async def diagnose(full: bool = Query(False, description="If true, run extended 
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 8000)))
+    uvicorn.run(app, host="0.0.0.0", port=PORT)
 
